@@ -125,6 +125,30 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+.research{
+	display: flex;
+	justify-content: center;
+}
+.research button{
+	/* width: 100px; */
+	border: 1px solid #1D6154;
+	border-radius: 60px;
+	color: #1D6154;
+	background-color: white;
+	font-family: 'Syne';
+	font-weight: 700;
+	size: 16px;
+	padding: 3px 10px 3px 10px;
+	margin-bottom: 50px;
+	margin: 10px;
+	align-items: center;
+}
+
+.research :hover{
+	background-color: #1D6154;
+	color: white;
+}
+
 .gallery {
 	width: 100%;
 	display: grid;
