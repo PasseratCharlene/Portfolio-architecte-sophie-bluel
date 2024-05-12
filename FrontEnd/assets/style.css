@@ -100,10 +100,6 @@ li:hover {
 	color: #B1663C;
 }
 
-.link:hover {
-	color: black;
-}
-
 #introduction {
 	display: flex;
 	align-items: center;
@@ -214,4 +210,5 @@ footer nav ul {
 	justify-content: flex-end;
 	margin: 2em
 }
+
 
