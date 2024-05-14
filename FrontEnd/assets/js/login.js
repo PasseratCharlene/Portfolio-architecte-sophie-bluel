@@ -1,29 +1,63 @@
-import retriveContent from "./datamanager";
+// Sélectionnez le formulaire que vous souhaitez écouter
+var formulaire = document.getElementById("form-login");
 
-async function displayLogin() {
-    try {
-        // Récupérer les données depuis l'API
-        const data = await retrieveContent("http://localhost:5678/api/users/login");
+// Ajoutez un écouteur d'événement pour l'événement "submit" du formulaire
+formulaire.addEventListener("submit", function(event) {
+    // Empêchez le comportement par défaut du formulaire qui est de recharger la page
+    event.preventDefault();
+    
+    // Code à exécuter lorsque le formulaire est soumis
+    console.log("Le formulaire a été soumis !");
 
-        // Sélectionner l'élément où nous voulons afficher les données
-        const login = document.querySelector("#login");
+     // Récupérez les valeurs des champs email et password
+     const email = document.getElementById("email").value;
+     const password = document.getElementById("pass").value;
+     
+     // Faites ce que vous voulez avec ces valeurs
+     console.log("Email:", email);
+     console.log("Mot de passe:", password);
 
-        // Effacer le contenu précédent de l'élément
-        login.innerHTML = "";
+     // Créez un objet contenant les données à envoyer au serveur
+    var data = {
+        email: email,
+        password: password
+    };
+    
+    // Envoiez les données au serveur via une requête POST
+    fetch('http://localhost:5678/api/users/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(function(response) {
+        // Gérez la réponse du serveur ici
+        if (response.ok) {
+            console.log("Données envoyées avec succès !");
+            return response.json();
+            // Vous pouvez ajouter d'autres actions à effectuer ici en cas de succès
+        } else {
+            console.error("Erreur lors de l'envoi des données au serveur.");
+            throw new Error('Erreur lors de la requête');
+        }
+    })
+    .then(function(data) {
+        // Traitez les données reçues du serveur
+        console.log(data);
+    })
+    .catch(function(error) {
+        console.error("Une erreur s'est produite :", error);
+    });
+    
+    // Vous pouvez ajouter d'autres actions à effectuer ici
+    
+    // Si vous souhaitez soumettre le formulaire après vos traitements, vous pouvez le faire
+    // avec la méthode submit() du formulaire
+    // formulaire.submit();
+});
 
-        // Parcourir les données récupérées et les ajouter à l'élément HTML
-        data.forEach(user => {
-            // Créer un paragraphe pour chaque utilisateur
-            const paragraph = document.createElement("p");
-            // Remplir le contenu du paragraphe avec les données de l'utilisateur
-            paragraph.textContent = `Username: ${user.username}, Password: ${user.password}`;
-            // Ajouter le paragraphe à l'élément où nous voulons afficher les données
-            login.appendChild(paragraph);
-        });
-    } catch (error) {
-        // Gérer les erreurs de récupération des données
-        console.error("Error retrieving login data:", error);
-    }
-}
-    export default displayLogin
+
+
+
 
