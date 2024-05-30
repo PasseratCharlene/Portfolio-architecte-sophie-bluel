@@ -44,14 +44,25 @@ formulaire.addEventListener("submit", function(event) {
     })
     .then(function(data) {
         // Traitez les données reçues du serveur
-        console.log(data);
+        if (data.token) {
+             // Enregistrement d'un token dans Local Storage
+             localStorage.setItem('token', data.token);
+             console.log("Token enregistré:", data.token);
+
+             // Redirection vers la page d'accueil
+             window.location.href = '/';
+             console.log(data);
+        } else {
+            console.error("Token non reçu.");
+            document.getElementById("erreur-message").textContent = "Erreur d'email ou mot de passe";
+        }
     })
     .catch(function(error) {
         console.error("Une erreur s'est produite :", error);
+        document.getElementById("erreur-message").textContent = "erreur d'email ou mots de passe"
     });
     
     // Vous pouvez ajouter d'autres actions à effectuer ici
-    
     // Si vous souhaitez soumettre le formulaire après vos traitements, vous pouvez le faire
     // avec la méthode submit() du formulaire
     // formulaire.submit();
